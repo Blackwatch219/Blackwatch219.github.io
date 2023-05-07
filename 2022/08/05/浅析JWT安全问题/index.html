@@ -232,18 +232,18 @@
 </li>
 </ul>
 <h2 id="JWT格式"><a href="#JWT格式" class="headerlink" title="JWT格式"></a>JWT格式</h2><p>JWT由<code>Header、Payload、Signature</code>组成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Header.Payload.Signature</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Header.Payload.Signature</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/05/%E6%B5%85%E6%9E%90JWT%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/1.png"></p>
 <ul>
 <li><p>Header</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;alg&quot;:&quot;加密算法&quot;,&quot;typ&quot;:&quot;JWT&quot;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;alg&quot;:&quot;加密算法&quot;,&quot;typ&quot;:&quot;JWT&quot;&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Payload</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iss: The issuer of the token</span><br><span class="line">sub: The subject of the token</span><br><span class="line">aud: The audience of the token</span><br><span class="line">exp: JWT expiration time defined in Unix time</span><br><span class="line">nbf: &quot;Not before&quot; time that identifies the time before which the JWT must not be accepted for processing</span><br><span class="line">iat: &quot;Issued at&quot; time, in Unix time, at which the token was issued</span><br><span class="line">jti: JWT ID claim provides a unique identifier for the JWT</span><br><span class="line">&#x2F;&#x2F;可以自定义其它字段</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">iss: The issuer of the token</span><br><span class="line">sub: The subject of the token</span><br><span class="line">aud: The audience of the token</span><br><span class="line">exp: JWT expiration time defined in Unix time</span><br><span class="line">nbf: &quot;Not before&quot; time that identifies the time before which the JWT must not be accepted for processing</span><br><span class="line">iat: &quot;Issued at&quot; time, in Unix time, at which the token was issued</span><br><span class="line">jti: JWT ID claim provides a unique identifier for the JWT</span><br><span class="line">//可以自定义其它字段</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Signature</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Signature &#x3D; HMACSHA256(base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload),&quot;secret&quot;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Signature = HMACSHA256(base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload),&quot;secret&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>secret保存在后端，就是来解析确定验证的key</p>
 </li>
@@ -265,7 +265,7 @@
 <p>Lab: JWT authentication bypass via unverified signature</p>
 </li>
 <li><p>解法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">To solve the lab, modify your session token to gain access to the admin panel at &#x2F;admin, then delete the user carlos.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">To solve the lab, modify your session token to gain access to the admin panel at /admin, then delete the user carlos.</span><br></pre></td></tr></table></figure>
 
 <p>我们需要把carlos删掉，而这就需要登录管理员账号，但是又没有给管理员的账号，只有一个普通用户，那我们就要想办法提升权限</p>
 <p>先抓包</p>
@@ -279,7 +279,7 @@
 </li>
 </ul>
 <h2 id="未对加密算法进行强验证"><a href="#未对加密算法进行强验证" class="headerlink" title="未对加密算法进行强验证"></a>未对加密算法进行强验证</h2><p>回顾一下Header的构成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;alg&quot;:&quot;加密算法&quot;,&quot;typ&quot;:&quot;JWT&quot;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;alg&quot;:&quot;加密算法&quot;,&quot;typ&quot;:&quot;JWT&quot;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这里alg可以说明加密算法，但如果对该设置不进行强认证也会造成越权问题</p>
 <p>我们可以把加密算法设成none来进行验证绕过</p>
@@ -295,7 +295,7 @@
 <p>然后就是正常删除用户就行</p>
 </li>
 </ul>
-<h2 id="绕过弱签名密钥进行越权"><a href="#绕过弱签名密钥进行越权" class="headerlink" title="绕过弱签名密钥进行越权"></a>绕过弱签名密钥进行越权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Signature &#x3D; HMACSHA256(base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload),&quot;secret&quot;)</span><br></pre></td></tr></table></figure>
+<h2 id="绕过弱签名密钥进行越权"><a href="#绕过弱签名密钥进行越权" class="headerlink" title="绕过弱签名密钥进行越权"></a>绕过弱签名密钥进行越权</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Signature = HMACSHA256(base64UrlEncode(header) + &quot;.&quot; + base64UrlEncode(payload),&quot;secret&quot;)</span><br></pre></td></tr></table></figure>
 
 <p>我们知道，签名存在一个secret密钥，这个一般都会保存在后端，别人无法查看，但是类同于弱口令，一旦这个密钥不复杂就有可能被爆破，gayhub上也有很多爆破的字典</p>
 <ul>
@@ -305,7 +305,7 @@
 <li><p>解法</p>
 <p>还是一样先抓包得到JWT</p>
 <p>然后用到hashcat来进行爆破，kali自带</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -a 0 -m 16500 &lt;YOUR-JWT&gt; &#x2F;path&#x2F;to&#x2F;jwt.secrets.list</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -a 0 -m 16500 &lt;YOUR-JWT&gt; /path/to/jwt.secrets.list</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/05/%E6%B5%85%E6%9E%90JWT%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/7.png"></p>
 <p>爆破得到<code>secret</code>为secret1</p>
@@ -317,13 +317,13 @@
 </ul>
 <h2 id="JWT标头注入"><a href="#JWT标头注入" class="headerlink" title="JWT标头注入"></a>JWT标头注入</h2><p>与很多注入一样，JWT标头注入也可大致分为两种情况，一是与数据库连接，搭配sql注入使用，一是不与数据库连接，单独进行越权操作</p>
 <h3 id="通过jwk参数注入自签名的JWT"><a href="#通过jwk参数注入自签名的JWT" class="headerlink" title="通过jwk参数注入自签名的JWT"></a>通过jwk参数注入自签名的JWT</h3><p>还记得我们说过的JWS吗</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JWS，即JSON Web Signature，只是 JWT 的一种实现</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JWS，即JSON Web Signature，只是 JWT 的一种实现</span><br></pre></td></tr></table></figure>
 
 <p>我们就可以通过JWK注入JWT，形成JWS</p>
 <ul>
 <li><p>那什么是JWK呢</p>
 <p>JWK 英文全称为 JSON Web Key，是一个JSON对象，表示一个加密的密钥，他不同于alg属性，JWK是可选的，以下就是一个示例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;kid&quot;: &quot;ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG&quot;,</span><br><span class="line">    &quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">    &quot;alg&quot;: &quot;RS256&quot;,</span><br><span class="line">    &quot;jwk&quot;: &#123;</span><br><span class="line">        &quot;kty&quot;: &quot;RSA&quot;,</span><br><span class="line">        &quot;e&quot;: &quot;AQAB&quot;,</span><br><span class="line">        &quot;kid&quot;: &quot;ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG&quot;,</span><br><span class="line">        &quot;n&quot;: &quot;yy1wpYmffgXBxhAUJzHHocCuJolwDqql75ZWuCQ_cb33K2vh9m&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;kid&quot;: &quot;ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG&quot;,</span><br><span class="line">    &quot;typ&quot;: &quot;JWT&quot;,</span><br><span class="line">    &quot;alg&quot;: &quot;RS256&quot;,</span><br><span class="line">    &quot;jwk&quot;: &#123;</span><br><span class="line">        &quot;kty&quot;: &quot;RSA&quot;,</span><br><span class="line">        &quot;e&quot;: &quot;AQAB&quot;,</span><br><span class="line">        &quot;kid&quot;: &quot;ed2Nf8sb-sD6ng0-scs5390g-fFD8sfxG&quot;,</span><br><span class="line">        &quot;n&quot;: &quot;yy1wpYmffgXBxhAUJzHHocCuJolwDqql75ZWuCQ_cb33K2vh9m&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>在理想情况下，服务器应该是只使用公钥白名单来验证JWT签名的，但对于一些相关配置错误的服务器会用JWK参数中嵌入的任何密钥进行验证，攻击者就可以利用这一行为，用自己的RSA私钥对修改过的JWT进行签名，然后在JWK头部中嵌入对应的公钥进行越权操作</p>
 </li>
@@ -355,7 +355,7 @@
 <p>先还是正常抓包修改sub内容，然后去到JWT Editor Keys生成一个RSA密钥，或者用上一道题目的也行，然后复制公钥</p>
 <p><img src="/2022/08/05/%E6%B5%85%E6%9E%90JWT%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/14.png"></p>
 <p>然后加上key头</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;keys&quot;: [</span><br><span class="line">    </span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;keys&quot;: [</span><br><span class="line">    </span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>保存到exploit的body中</p>
 <p><img src="/2022/08/05/%E6%B5%85%E6%9E%90JWT%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98/15.png"></p>
@@ -690,18 +690,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -711,6 +699,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
               </li>
              
               <li class="article-tag-list-item">

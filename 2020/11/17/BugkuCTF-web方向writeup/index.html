@@ -221,15 +221,15 @@
 <p>更改长度后，正确输入结果即可得到flag</p>
 <p><img src="/2020/11/17/BugkuCTF-web%E6%96%B9%E5%90%91writeup/5.png"></p>
 <h3 id="web基础-GET"><a href="#web基础-GET" class="headerlink" title="web基础$_GET"></a>web基础$_GET</h3><p>页面代码</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$what=$_GET[<span class="string">&#x27;what&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> $what;</span><br><span class="line"><span class="keyword">if</span>($what==<span class="string">&#x27;flag&#x27;</span>)</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;flag&#123;****&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$what</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;what&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$what</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$what</span>==<span class="string">&#x27;flag&#x27;</span>)</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;flag&#123;****&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
 <p>很显然，get传入<code>flag</code>即可</p>
 <p><img src="/2020/11/17/BugkuCTF-web%E6%96%B9%E5%90%91writeup/6.png"></p>
 <h3 id="web基础-POST"><a href="#web基础-POST" class="headerlink" title="web基础$_POST"></a>web基础$_POST</h3><p>代码与上一题基本一致，改成post传参而已</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$what=$_POST[<span class="string">&#x27;what&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> $what;</span><br><span class="line"><span class="keyword">if</span>($what==<span class="string">&#x27;flag&#x27;</span>)</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;flag&#123;****&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$what</span>=<span class="variable">$_POST</span>[<span class="string">&#x27;what&#x27;</span>];</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$what</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$what</span>==<span class="string">&#x27;flag&#x27;</span>)</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;flag&#123;****&#125;&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2020/11/17/BugkuCTF-web%E6%96%B9%E5%90%91writeup/7.png"></p>
-<h3 id="矛盾"><a href="#矛盾" class="headerlink" title="矛盾"></a>矛盾</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$num=$_GET[<span class="string">&#x27;num&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(!is_numeric($num))</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">echo</span> $num;</span><br><span class="line"><span class="keyword">if</span>($num==<span class="number">1</span>)</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;flag&#123;**********&#125;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="矛盾"><a href="#矛盾" class="headerlink" title="矛盾"></a>矛盾</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$num</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;num&#x27;</span>];</span><br><span class="line"><span class="keyword">if</span>(!<span class="title function_ invoke__">is_numeric</span>(<span class="variable">$num</span>))</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$num</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="variable">$num</span>==<span class="number">1</span>)</span><br><span class="line"><span class="keyword">echo</span> <span class="string">&#x27;flag&#123;**********&#125;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>其实就是php弱类型比较问题</p>
 <p>直接传入<code>num=1</code>会die，但是传入<code>num=1a</code>就可以</p>
@@ -535,18 +535,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -556,6 +544,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
               </li>
              
               <li class="article-tag-list-item">

